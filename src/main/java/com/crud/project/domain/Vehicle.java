@@ -2,6 +2,7 @@ package com.crud.project.domain;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Data
 @Entity(name = "vehicles")
 public class Vehicle {
     @Id
