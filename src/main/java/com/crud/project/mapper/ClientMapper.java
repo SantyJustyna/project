@@ -13,6 +13,7 @@ public class ClientMapper {
                 clientDto.getId(),
                 clientDto.getName(),
                 clientDto.getAddress(),
+                clientDto.getMail(),
                 clientDto.getVatNumber()
         );
     }
@@ -22,6 +23,7 @@ public class ClientMapper {
                 client.getId(),
                 client.getName(),
                 client.getAddress(),
+                client.getMail(),
                 client.getVatNumber()
         );
     }

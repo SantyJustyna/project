@@ -11,6 +11,7 @@ public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
+                orderDto.getOrderReference(),
                 orderDto.getLoadingPlace(),
                 orderDto.getDeliveryPlace(),
                 orderDto.getLoadingDate(),
@@ -22,6 +23,7 @@ public class OrderMapper {
     public OrderDto mapToOrderDto(final Order order) {
         return new OrderDto(
                 order.getId(),
+                order.getOrderReference(),
                 order.getLoadingPlace(),
                 order.getDeliveryPlace(),
                 order.getLoadingDate(),

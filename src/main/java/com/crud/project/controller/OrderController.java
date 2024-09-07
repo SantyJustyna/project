@@ -55,4 +55,10 @@ public class OrderController {
         service.saveOrder(order);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/{orderId}/complete")
+    public ResponseEntity<OrderDto> markOrderAsCompleted(@PathVariable Long orderId) throws OrderNotFoundException {
+        Order completedOrder = service.markAsCompleted(orderId);
+        return ResponseEntity.ok(mapper.mapToOrderDto(completedOrder));
+    }
 }

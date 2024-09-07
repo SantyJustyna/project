@@ -50,7 +50,7 @@ public class DriverMapperTestSuite {
                                           new Driver(14L, "name2", "surname2"));
 
         //When
-        List<DriverDto> driverDtoList = mapper.mapToGroupDtoList(driverList);
+        List<DriverDto> driverDtoList = mapper.mapToDriverDtoList(driverList);
 
         //Then
         assertEquals(2, driverDtoList.size());

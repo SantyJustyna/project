@@ -1,5 +1,7 @@
 package com.crud.project.domain;
 
+import com.crud.project.notification.Observable;
+import com.crud.project.notification.Observer;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -17,6 +22,9 @@ public class Order {
     @NotNull
     @GeneratedValue
     private Long id;
+
+    @Column(name = "reference")
+    private String orderReference;
 
     @Column(name = "loading_place")
     private String loadingPlace;
@@ -45,8 +53,9 @@ public class Order {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public Order(Long id, String loadingPlace, String deliveryPlace, LocalDate loadingDate, LocalDate deliveryDate, Boolean completed) {
+    public Order(Long id, String orderReference, String loadingPlace, String deliveryPlace, LocalDate loadingDate, LocalDate deliveryDate, Boolean completed) {
         this.id = id;
+        this.orderReference = orderReference;
         this.loadingPlace = loadingPlace;
         this.deliveryPlace = deliveryPlace;
         this.loadingDate = loadingDate;

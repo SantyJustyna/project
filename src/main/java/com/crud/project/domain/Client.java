@@ -1,5 +1,6 @@
 package com.crud.project.domain;
 
+import com.crud.project.notification.Observer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -24,6 +25,9 @@ public class Client {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "mail")
+    private String mail;
+
     @Column(name = "vat_number")
     private String vatNumber;
 
@@ -34,10 +38,11 @@ public class Client {
             fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
 
-    public Client(Long id, String name, String address, String vatNumber) {
+    public Client(Long id, String name, String address, String mail, String vatNumber) {
         this.id = id;
         this.name = name;
         this.address = address;
+        this.mail = mail;
         this.vatNumber = vatNumber;
     }
 }

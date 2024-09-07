@@ -21,7 +21,7 @@ public class ClientMapperTestSuite {
     @Test
     public void shouldMapToClient() {
         //Given
-        ClientDto clientDto = new ClientDto(12L, "test name", "test address", "PL0000");
+        ClientDto clientDto = new ClientDto(12L, "test name", "test address", "wp@wp.pl", "PL0");
 
         //When
         Client client = mapper.mapToClient(clientDto);
@@ -33,7 +33,7 @@ public class ClientMapperTestSuite {
     @Test
     public void shouldMapToClientDto() {
         //Given
-        Client client = new Client(12L, "test name", "test address", "PL0000");
+        Client client = new Client(12L, "test name", "test address", "wp@wp.pl","PL0000");
 
         //When
         ClientDto clientDto = mapper.mapToClientDto(client);
@@ -45,8 +45,8 @@ public class ClientMapperTestSuite {
     @Test
     public void shouldMapToClientDtoList() {
         //Given
-        List<Client> clientList = List.of(new Client(13L, "name1", "address1", "VAT1"),
-                                          new Client(14L, "name2", "address2", "VAT2"));
+        List<Client> clientList = List.of(new Client(13L, "name1", "address1", "wp@wp.pl", "VAT1"),
+                                          new Client(14L, "name2", "address2", "wp@wp.pl", "VAT2"));
 
         //When
         List<ClientDto> clientDtoList = mapper.mapToClientDtoList(clientList);

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class OrderDto {
     private Long id;
+    private String orderReference;
     private String loadingPlace;
     private String deliveryPlace;
     private LocalDate loadingDate;

@@ -21,7 +21,7 @@ public class OrderMapperTestSuite {
     @Test
     public void shouldMapToOrder() {
         //Given
-        OrderDto orderDto = new OrderDto(33L, "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
+        OrderDto orderDto = new OrderDto(33L, "2222", "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
 
         //When
         Order order = mapper.mapToOrder(orderDto);
@@ -33,7 +33,7 @@ public class OrderMapperTestSuite {
     @Test
     public void shouldMapToOrderDto() {
         //Given
-        Order order = new Order(33L, "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
+        Order order = new Order(33L, "2222", "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
 
         //When
         OrderDto orderDto = mapper.mapToOrderDto(order);
@@ -45,8 +45,8 @@ public class OrderMapperTestSuite {
     @Test
     public void shouldMapToOrderDtoList() {
         //Given
-        Order order1 = new Order(33L, "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
-        Order order2 = new Order(34L, "Zerbst", "Berlin", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
+        Order order1 = new Order(33L, "2222", "Berlin", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
+        Order order2 = new Order(34L, "333", "Zerbst", "Bonn", LocalDate.of(2020, 12, 1), LocalDate.of(2020, 12, 2), true);
         List<Order> orderList = List.of(order1, order2);
 
         //When

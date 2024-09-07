@@ -9,5 +9,6 @@ public class ClientDto {
     private Long id;
     private String name;
     private String address;
+    private String mail;
     private String vatNumber;
 }

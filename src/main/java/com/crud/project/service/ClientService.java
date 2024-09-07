@@ -2,6 +2,7 @@ package com.crud.project.service;
 
 import com.crud.project.controller.ClientNotFoundException;
 import com.crud.project.domain.Client;
+import com.crud.project.notification.ClientObserver;
 import com.crud.project.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
