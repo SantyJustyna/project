@@ -28,7 +28,9 @@ public class OrderMapper {
                 order.getDeliveryPlace(),
                 order.getLoadingDate(),
                 order.getDeliveryDate(),
-                order.getCompleted()
+                order.getCompleted(),
+                order.getDriver().getSurname(),
+                order.getVehicle().getPlateNumber()
         );
     }
 
