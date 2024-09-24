@@ -5,7 +5,9 @@ import com.crud.project.domain.Client;
 import com.crud.project.notification.ClientObserver;
 import com.crud.project.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 

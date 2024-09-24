@@ -16,7 +16,6 @@ import java.util.List;
 @Entity(name = "drivers")
 public class Driver {
     @Id
-    @NotNull
     @GeneratedValue
     private Long id;
 

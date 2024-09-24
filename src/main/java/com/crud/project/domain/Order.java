@@ -38,8 +38,8 @@ public class Order {
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
 
-    @Column(name = "order_completed")
-    private Boolean completed;
+    @Column(name = "order_completed", nullable = false)
+    private Boolean completed = false;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "driver_id")
