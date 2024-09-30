@@ -9,14 +9,18 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
-import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-@Transactional
+
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTestSuite {
     @InjectMocks
@@ -30,6 +34,12 @@ public class OrderServiceTestSuite {
 
     @Mock
     private ClientObserver clientObserver;
+
+    @Mock
+    private JavaMailSender mailSender;
+
+    @Value("${admin.email}")
+    private String adminEmail = "admin@example.com";
 
     @Test
     void testGetAllOrders() {
@@ -130,6 +140,39 @@ public class OrderServiceTestSuite {
 
         // Then
         verify(notificationService, times(1)).registerObserver(clientObserver);
+    }
+
+    @Test
+    void testCheckAndSendDeliveryNotification() {
+        // Given
+        Order order = new Order();
+        order.setOrderReference("12345");
+        LocalDate localDate;
+        when(orderRepository.findOrdersByDeliveryDate(LocalDate.now())).thenReturn(Collections.singletonList(order));
+        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+
+        // When
+        orderService.checkAndSendDeliveryNotification();
+
+        // Then
+        verify(orderRepository, times(1)).findOrdersByDeliveryDate(LocalDate.now());
+        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
+    }
+
+    @Test
+    void testSendDeliveryNotification() {
+        // Given
+        Order order = new Order();
+        order.setOrderReference("12345");
+        List<Order> orders = Collections.singletonList(order);
+
+        when(orderRepository.findOrdersByDeliveryDate(LocalDate.now())).thenReturn(orders);
+
+        // When
+        orderService.checkAndSendDeliveryNotification();
+
+        // Then
+        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
     }
 }
 

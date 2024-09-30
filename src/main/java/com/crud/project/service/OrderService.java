@@ -3,13 +3,16 @@ package com.crud.project.service;
 import com.crud.project.controller.OrderNotFoundException;
 import com.crud.project.domain.Order;
 import com.crud.project.notification.ClientObserver;
-import com.crud.project.notification.Observer;
 import com.crud.project.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,8 +21,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderNotificationService notificationService;
     private final ClientObserver clientObserver;
-    private final GoogleMapsService googleMapsService;
-    private final OpenWeatherService openWeatherService;
+    private final JavaMailSender mailSender;
+
+    @Value("${admin.email}")
+    private String adminEmail;
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
@@ -55,14 +60,21 @@ public class OrderService {
         notificationService.registerObserver(clientObserver);
     }
 
-    public long calculateOrderDistance(Order order) throws Exception {
-        String origin = order.getLoadingPlace();
-        String destination = order.getDeliveryPlace();
-        return googleMapsService.calculateDistance(origin, destination);
+    @Scheduled(cron = "0 0 6 * * ?")
+    public void checkAndSendDeliveryNotification() {
+        List<Order> ordersForToday = orderRepository.findOrdersByDeliveryDate(LocalDate.now());
+
+        for (Order order : ordersForToday) {
+            sendDeliveryNotification(order);
+        }
     }
 
-    public String getWeatherForOrder(Order order) {
-        String location = order.getLoadingPlace();
-        return openWeatherService.getWeatherForLocation(location);
+    private void sendDeliveryNotification(Order order) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(adminEmail);
+        message.setSubject("Delivery Date Notification");
+        message.setText("Delivery date of order " + order.getOrderReference() + " is today.");
+
+        mailSender.send(message);
     }
 }
